@@ -4,7 +4,7 @@
 
 from countryinfo import CountryInfo
 
-country  = input ("Enter any country whose capital you want to find out!")
+country  = input ("Enter any country whose capital you want to find out! ")
 
 try:
   capital = CountryInfo(country).capital()
