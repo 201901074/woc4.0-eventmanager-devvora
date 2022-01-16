@@ -32,3 +32,16 @@ try:
 
 except:
   print("Invalid URL")
+
+text = input("Please add some data to append!")
+
+file = open('text_file','a')
+for each in text:
+  file.write(each)
+file.close();
+
+file = open('text_file','r')
+for each in file:
+  print(each)
+
+  
