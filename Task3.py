@@ -2,18 +2,18 @@
 thisdict = {}
 
 
-print("Please enter your name")
+print("Please enter your name ")
 user = input()
 print("Hello ", user)
-print("Press 1 to store a new contact")
-print("Press 2 to view a stored contact")
-print("Press 3 to view all contacts")
-print("Press -1 to exit the process at any given time")
+print("Press 1 to store a new contact ")
+print("Press 2 to view a stored contact ")
+print("Press 3 to view all contacts ")
+print("Press -1 to exit the process at any given time ")
 
 t = input()
 
 if t == "1":
-  n = input("Please enter the name of the person")
+  n = input("Please enter the name of the person ")
   print("Please enter the contact number(s) of ", n)
   print("To exit the process, press -1")
 
@@ -28,7 +28,7 @@ if t == "1":
     
   
 elif t == "2":
-  n = input("Please enter the name (partial/complete) of the user whose contacts you want to check")
+  n = input("Please enter the name (partial/complete) of the user whose contacts you want to check ")
   print("Now, we will provide a list of users who have this name (completely/partially).")
 
   for x in thisdict.keys():
@@ -39,11 +39,6 @@ elif t == "2":
   if n == "-1":
     exit()
   
-  print(n)
-  print(type(n))
-  if n in thisdict.keys():
-    print("Yay")
-
   for x in thisdict[n]:
     print(x)
 
@@ -53,5 +48,4 @@ elif t == "3":
     print(x)
     for n in thisdict[x]:
       print(n)
-  
-  print("\n")
+    print("\n")
