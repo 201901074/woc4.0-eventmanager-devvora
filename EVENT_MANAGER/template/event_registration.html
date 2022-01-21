@@ -1,0 +1,87 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="background-color: #f7ffff;"class="p-3 mb-2  text-dark">
+
+
+    <figure class="text-center">
+        <br><br><br><br><br>    
+        <h1 class="display-1">Event Registration</h1>
+
+    </figure>
+
+        <br><br>
+            <div class="shadow-lg p-5 mb-5 mt-1 ms-5 me-5 bg-body rounded" class="container px-2">
+            <form action="event_registration.html" method="post" class="row g-3" >
+                {% csrf_token %}
+
+                <div class="col-md-6" ">
+                    <label for="hname" class="form-label">Host Name</label>
+                    <input type="text" class="form-control" id="hname" name="hname">
+                </div>
+
+                <div class="col-md-6">
+                <label for="hemail" class="form-label">Host Email</label>
+                <input type="email" class="form-control" id="hemail" name="hemail">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="ename" class="form-label">Event Name</label>
+                    <input type="text" class="form-control" id="ename" name="ename">
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="eloc" class="form-label">Event Location</label>
+                    <input type="text" class="form-control" id="eloc" name="eloc">
+                </div>
+
+                <div class="mb-3">
+                    <label for="edesc" class="form-label">Event Description</label>
+                    <textarea class="form-control" id="edesc" name="edesc" rows="3"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="pswd" class="form-label">Host Password</label>
+                    <input type="password" class="form-control" id="pswd" name="pswd" rows="3"></input>
+                </div>
+                
+                
+                <div class="col-md-4">
+                    <label for="fromd" class="form-label">From</label>
+                    <input type="date" class="form-control" id="fromd" name="fromd">
+                    <label for="fromt" class="form-label"></label>
+                    <input type="time" class="form-control" id="fromt" name="fromt">
+                </div> 
+                
+                <div class="col-md-4">
+                    <label for="tod" class="form-label">From</label>
+                    <input type="date" class="form-control" id="tod" name="tod">
+                    <label for="tot" class="form-label"></label>
+                    <input type="time" class="form-control" id="tot" name="tot">
+                </div> 
+
+                <div class="col-md-4">
+                    <label for="rdd" class="form-label">From</label>
+                    <input type="date" class="form-control" id="rdd" name="rdd">
+                    <label for="rdt" class="form-label"></label>
+                    <input type="time" class="form-control" id="rdt" name="rdt">
+                </div> 
+
+
+
+
+                <div  class="text-center" >
+                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                </div>   
+            </form>
+        </div>    
+
+    </div>
+
+
+
+
+{% endblock %}
