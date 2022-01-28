@@ -1,11 +1,7 @@
 from cProfile import label
 from django.db import models
-# from django.utils.encoding import force_text
 from django import forms
-# from django.forms import DateField, widgets
-# from django.utils import format
-# from datetimepicker.widgets import DateTimePicker
-# from datetime import datetime
+import datetime
 
 # Create your models here.
 
@@ -16,7 +12,7 @@ class reg(models.Model):
     ename = models.CharField(max_length=256)
     eloc = models.CharField(max_length=256)
     edesc = models.TextField()
-    pswd = models.CharField(max_length=256, default="pswd")
+    pswd = models.CharField(max_length=256)
     sdate = models.DateField()
     stime = models.TimeField()
     edate = models.DateField()
@@ -24,4 +20,18 @@ class reg(models.Model):
     rdate = models.DateField()
     rtime = models.TimeField()
     
+
+class part(models.Model):
+    fname = models.CharField(max_length=256)
+    lname = models.CharField(max_length=256)
+    iemail = models.EmailField()
+    icon = models.CharField(max_length=256)
+    rtpye = models.CharField(max_length=256,null=True)
+    rno = models.PositiveIntegerField()
+    eid = models.CharField(max_length=256)
+
+
+class das(models.Model):
+    eid = models.CharField(max_length=256)
+    epass = models.CharField(max_length=256)
     

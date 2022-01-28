@@ -4,70 +4,35 @@
 {% block content %}
 
 
-    <div style="background-color: #f7ffff;"class="p-3 mb-2  text-dark">
+        <div style="background-color: #f7ffff;"class="p-3 mb-2  text-dark">
 
 
-        <figure class="text-center">
-            <br><br><br><br><br>    
-            <h1 class="display-1">Event Dashboard</h1>
-    
-        </figure>
-    
-        {% for row in data%}
-
-            <br><br>
-                <div class="shadow-lg p-5 mb-5 mt-1 ms-5 me-5 bg-body rounded" class="container px-2">
-                <form  class="row g-3" >
-
-                    <div class="col-md-6" >
-                        Host Name
-                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.hname}}</div>
+            <figure class="text-center">
+                <br><br><br><br><br>    
+                <h1 class="display-1">Event Dashboard</h1>
+        
+            </figure>
+        
+            <div class="shadow-lg p-5 mb-5 mt-1 ms-5 me-5 bg-body rounded" class="container px-2">        
+                <form action="event_dashboard.html" method="post"  class="row g-3" >
+                    {% csrf_token %}
+                    <div class="col-md-6" ">
+                        <label for="hid" class="form-label">Event ID</label>
+                        <input type="text" class="form-control" id="hid" name="hid" required>
                     </div>
-    
-                    <div class="col-md-6">
-                        Host Email
-                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.hemail}}</div>
-                    </div>
-    
-                    <div class="col-md-6">
-                        Event Name
-                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" > {{row.ename}}</div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        Event Location
-                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" > {{row.eloc}}</div>
-                    </div>
-    
-                    <div class="mb-3">
-                        Event Description
-                        <div class="rounded p-auto mt-auto " style="background-color: rgb(235, 235, 235);" > {{row.edesc}}</div>
-                    </div>
-                    
 
-                    <div class="col-md-4">
-                       From
-                       <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" > {{row.sdate}}</div>
-                       <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.stime}}</div>
-                    </div> 
-    
-                    <div class="col-md-4">
-                        To
-                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.edate}}</div>
-                       <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.etime}}</div>
-                    </div> 
-    
-                    <div class="col-md-4">
-                        Registration Deadline
-                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.rdate}}</div>
-                       <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.rtime}}</div>
-                    </div> 
-    
-                </form> 
-            </div>    
-        {% endfor %}
-    </div>
-    
+                    <div class="col-md-6" ">
+                        <label for="epass" class="form-label">Event Password</label>
+                        <input type="password" class="form-control" id="epass" name="epass" required>
+                    </div>
 
+                    <div  class="text-center" >
+                        <button type="submit" class="btn btn-primary">Get event details</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+      
 
 {% endblock %}

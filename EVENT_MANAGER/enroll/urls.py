@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^event_registration.html', views.regis, name="regis"),
     re_path(r'^event_participation.html', views.parti, name="parti"),
     re_path(r'^event_dashboard.html', views.dash, name="dash"),
+    re_path(r'^invalid.html', views.regis, name="regis"),    
 
 
 ]
