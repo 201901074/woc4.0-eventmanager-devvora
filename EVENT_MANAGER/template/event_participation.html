@@ -5,117 +5,184 @@
 
 {% block content %}
 
-<div style="background-color: #fbfffa;"  class="p-3 mb-2  text-dark">
+<div style="background-color: #98c6d3e0;"  class="  text-dark">
 
+{% if data %}
 
     <figure class="text-center">
         <br><br><br><br><br>    
-        <h1 class="display-1">Event Participation</h1>
+        <h3 class="display-3 w-100 p-5  bg-white text-dark">Registrations are open for the following events.</h3>
     </figure>
 
-        <br><br>
-            <div class="shadow-lg p-5 mb-5 mt-1 ms-5 me-5 bg-body rounded" class="container px-2">
-            <form action="event_participation.html" method="post" enctype='multipart/form-data' class="row g-3" >
-                {% csrf_token %}
-                <div class="col-md-6" ">
-                    <label for="fname" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="fname" name="fname" required>
-                </div>
+        {% for row in data%}
+            
+                <br><br>
+                 <h1 class="font-weight-bold text-dark"> &nbsp; &nbsp; {{ row.ename }} </h1>
+                <br>
+                <div class="shadow-lg p-5 mb-5 mt-1 ms-5 me-5 bg-body rounded" class="container px-2">
+                    <form  class="row g-3" >
 
-                <div class="col-md-6" ">
-                    <label for="lname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lname" name="lname">
-                </div>
+                        <div class="col-md-6" >
+                            Host Name
+                            <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.hname}}</div>
+                        </div>
+        
+                        <div class="col-md-6">
+                            Host Email
+                            <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.hemail}}</div>
+                        </div>
+        
+                        <!-- <div class="col-md-6">
+                            Event Name
+                            <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" > {{row.ename}}</div>
+                        </div> -->
+                        
+                        <div class="col-md-6">
+                            Event Location
+                            <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" > {{row.eloc}}</div>
+                        </div>
+        
+                        <div class="mb-3">
+                            Event Description
+                            <div class="rounded p-auto mt-auto " style="background-color: rgb(235, 235, 235);" > {{row.edesc}}</div>
+                        </div>
+                        
 
-                <div class="col-md-6">
-                <label for="iemail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="iemail" name="iemail" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="icon" class="form-label">Contact Number</label>
-                    <input type="number" class="form-control" id="icon" name="icon" required>
-                </div>
+                        <div class="col-md-4">
+                        From
+                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" > {{row.sdate}}</div>
+                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.stime}}</div>
+                        </div> 
+        
+                        <div class="col-md-4">
+                            To
+                            <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.edate}}</div>
+                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.etime}}</div>
+                        </div> 
+        
+                        <div class="col-md-4">
+                            Registration Deadline
+                            <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.rdate}}</div>
+                        <div class="rounded p-2 mt-1 " style="background-color: rgb(235, 235, 235);" >{{row.rtime}}</div>
+                        </div> 
+        
+                    </form> 
+                </div>    
+        {% endfor %}
             
 
-                <div class="col-md-8">
-                    <p>Please select the events in which you want to register</p>
-    
-                    {% for row in data %}
-    
-                        <div class="form-check form-check-inline">
-                            
-                            <input type="checkbox" name="choices" value="{{row.id}}" class="form-check-input  id="choices">
-                            <label class="form-check-label " for="choices">{{row.ename}}</label>
-                        </div>
-                
-                        {% endfor %}
+            <br><br>
+                <div class="shadow-lg p-5 mb-5 mt-5 ms-5 me-5 bg-body rounded" class="container px-4">
+                <form action="event_participation.html" method="post" enctype='multipart/form-data' class="row g-3" >
+                    {% csrf_token %}
 
-                    </div>     
-                
-                <div class="form-check">
-                    <div class="col-md-8 ">
-                        <p> Please select your Registration Type  &nbsp;
-                        <input type="radio" value="indi" class="btn-check" name="options" id="option1">
-                        <label class="btn btn-secondary" for="option1">Indivivual</label>
-    
-                        <input type="radio" value="grp" class="btn-check" name="options" id="option2" >
-                        <label class="btn btn-info" for="option2">Group</label>
-                        </p>    
+                    <figure class="text-center">
+                        <h1 class="display-2 p-5 mb-0 mt-2 ms-5 me-5  bg-white text-dark">Event Participation</h1>
+                    </figure>
+
+                    <div class="col-md-6" ">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" required>
                     </div>
-                </div>
-    
-                <div class="grp selectt">    
+
+                    <div class="col-md-6" ">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname">
+                    </div>
+
                     <div class="col-md-6">
-                        <label for="rno" class="form-label">Number of people in  your group </label>
-                        <input type="number" class="form-control" id="rno" name="rno">
+                    <label for="iemail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="iemail" name="iemail" required>
                     </div>
-                </div>
-    
-                <div class="indi selectt">    </div>
-    
-    
-                <script type="text/javascript">
+
+                    <div class="col-md-6">
+                        <label for="icon" class="form-label">Contact Number</label>
+                        <input type="number" class="form-control" id="icon" name="icon" required>
+                    </div>
+                
+
+                    <div class="col-md-8">
+                        Please select the events in which you want to register.
+        
+                        {% for row in data %}
+        
+                            <div class="form-check form-check-inline">
+                                
+                                <input type="checkbox" name="choices" value="{{row.id}}" class="form-check-input  id="choices">
+                                <label class="form-check-label " for="choices">{{row.ename}}</label>
+                            </div>
                     
-                    $("input:checkbox").on('click', function() {
-                        // in the handler, 'this' refers to the box clicked on
-                        var $box = $(this);
-                        if ($box.is(":checked")) {
-                            // the name of the box is retrieved using the .attr() method
-                            // as it is assumed and expected to be immutable
-                            var group = "input:checkbox[name='" + $box.attr("name") + "']";
-                            // the checked state of the group/box on the other hand will change
-                            // and the current value is retrieved using .prop() method
-                            $(group).prop("checked", false);
-                            $box.prop("checked", true);
-                        } else {
-                            $box.prop("checked", false);
-                        }
+                            {% endfor %}
+
+                        </div>     
+                    
+                    <div class="form-check">
+                        <div class="col-md-8 ">
+                            <p> Please select your Registration Type  &nbsp;
+                            <input type="radio" value="indi" class="btn-check" name="options" id="option1">
+                            <label class="btn btn-secondary" for="option1">Indivivual</label>
+        
+                            <input type="radio" value="grp" class="btn-check" name="options" id="option2" >
+                            <label class="btn btn-info" for="option2">Group</label>
+                            </p>    
+                        </div>
+                    </div>
+        
+                    <div class="grp selectt">    
+                        <div class="col-md-6">
+                            <label for="rno" class="form-label">Number of people in  your group </label>
+                            <input type="number" class="form-control" id="rno" name="rno">
+                        </div>
+                    </div>
+        
+                    <div class="indi selectt">    </div>
+        
+        
+                    <script type="text/javascript">
+                        
+                        $("input:checkbox").on('click', function() {
+                            // in the handler, 'this' refers to the box clicked on
+                            var $box = $(this);
+                            if ($box.is(":checked")) {
+                                // the name of the box is retrieved using the .attr() method
+                                // as it is assumed and expected to be immutable
+                                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                                // the checked state of the group/box on the other hand will change
+                                // and the current value is retrieved using .prop() method
+                                $(group).prop("checked", false);
+                                $box.prop("checked", true);
+                            } else {
+                                $box.prop("checked", false);
+                            }
+                            });
+
+                        $(document).ready(function() {
+                            $('input[type="radio"]').click(function() {
+                                var inputValue = $(this).attr("value");
+                                var targetBox = $("." + inputValue);
+                                $(".selectt").not(targetBox).hide();
+                                $(targetBox).show();
+                            });
                         });
+                    </script>    
+                    
 
-                    $(document).ready(function() {
-                        $('input[type="radio"]').click(function() {
-                            var inputValue = $(this).attr("value");
-                            var targetBox = $("." + inputValue);
-                            $(".selectt").not(targetBox).hide();
-                            $(targetBox).show();
-                        });
-                    });
-                </script>    
-                  
- 
+                    <div  class="text-center" >
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>   
+                </form>
+            </div>    
 
-           
-           
+</div>
 
-                <div  class="text-center" >
-                <button type="submit" class="btn btn-primary">Submit</button>
-                </div>   
-            </form>
-        </div>    
+{% else %}
 
-    </div>
+<figure class="text-center">
+    <br><br><br><br><br>    
+    <h1 class="display-1 w-100 p-5  bg-white text-dark">No events available</h1>
+</figure>
 
 
+{% endif %}
 
 {% endblock %}

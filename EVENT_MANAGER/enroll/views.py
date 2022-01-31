@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from twilio.rest import Client
 from django.contrib import messages
+from django.views.decorators.cache import cache_control
 
 
 
@@ -39,8 +40,8 @@ def regis(request):
         obj.rdate = (request.POST.get('rdd'))
         obj.rtime = (request.POST.get('rdt'))
 
-        if obj.sdate > obj.edate or (obj.sdate == obj.edate and obj.stime > obj.etime):
-            return HttpResponse("Please recheck the timings")
+        if obj.sdate > obj.edate or (obj.sdate == obj.edate and obj.stime > obj.etime) :
+            return render(request, 'invalid.html', {'message':"Please recheck the timings"})
         
         clash = reg.objects.filter(ename = obj.ename)
 
@@ -48,17 +49,17 @@ def regis(request):
             if (str(e.sdate) > obj.edate or str(e.edate) < obj.sdate) or (str(e.sdate)==obj.edate and obj.etime < str(e.stime)) or (str(e.edate) == obj.sdate and str(e.etime) < obj.stime):
                 continue
             else:
-                return HttpResponse("Please either change the name of your event or its timings.")
+                return render(request, 'invalid.html', {'message':"Please either change the name of your event or its timings"})
 
         obj.save()
 
-        # send_mail(
-        #     'Success',
-        #     'Your Event is registered successfully with event id %s' %(reg.objects.latest('id')),
-        #     'managerevent15@gmail.com',
-        #     [obj.hemail],
-        #     fail_silently=False
-        # )
+        send_mail(
+            'Success',
+            'Hello %s!\n\nYour Event %s has been registered successfully with event id %s.\n\nVenue: %s\nStart Time: %s-/-%s\nEnd Time: %s-/-%s\nRegistration Deadline: %s-/-%s' %(obj.hname, obj.ename, obj.id, obj.eloc,obj.sdate,obj.stime,obj.edate,obj.etime,obj.rdate,obj.rtime),
+            'managerevent15@gmail.com',
+            [obj.hemail],
+            fail_silently=False
+        )
 
         return render(request, 'index.html')
 
@@ -95,20 +96,20 @@ def parti(request):
 
         ev = reg.objects.get(id=obj.eid)
 
-        # send_mail(
-        #     'Success',
-        #     'You have registered successfully in the event %s with your contact number %s. Total of exactly %s persons have registered from your side. Your unique event id %s' %(ev.ename, obj.icon, obj.rno, part.objects.latest('id')),
-        #     'managerevent15@gmail.com',
-        #     [obj.iemail],
-        #     fail_silently=False
-        # )
+        send_mail(
+            'Success',
+            'Dear %s!\n\nYou have registered successfully in the event %s with your contact number %s.\n\nTotal of exactly %s person have registered from your side.\n\nYour unique event id is %s' %(obj.fname, ev.ename, obj.icon, obj.rno, obj.id),
+            'managerevent15@gmail.com',
+            [obj.iemail],
+            fail_silently=False
+        )
         
-        # client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-        # message = client.messages.create(
-        #                                 body=f'Dear {obj.fname},\n You have successfully registered in the event {ev.ename} with your contact number {obj.icon}. Total of exactly {obj.rno} persons have registered from your side.\n Venue: {ev.eloc}\nStart Time : {ev.sdate} {ev.stime}\nEnd Time: {ev.edate} {ev.etime}\n For any further queries, please email to {str(ev.hemail)}',
-        #                                 from_='+18106349090',
-        #                                 to=f'+91{obj.icon}' 
-        #                             )
+        client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+        message = client.messages.create(
+                                        body=f'Dear {obj.fname},\n\nYou have successfully registered in the event {ev.ename} with your contact number {obj.icon}.\n\nTotal of exactly {obj.rno} person have registered from your side.\n\nVenue: {ev.eloc}\nStart Time : {ev.sdate} {ev.stime}\nEnd Time: {ev.edate} {ev.etime}\n\n Your Participation ID is {obj.id}',
+                                        from_='+18106349090',
+                                        to=f'+91{obj.icon}' 
+                                    )
         print(message.sid)
         return render(request, 'index.html')
 
@@ -122,7 +123,8 @@ def parti(request):
 
         return render(request, 'event_participation.html' ,{'data':obj })
     
-    
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)    
 def dash(request):
 
     if request.method == "POST":
@@ -136,11 +138,9 @@ def dash(request):
         try:
             ev = reg.objects.get(id=obj.eid)                
         except:
-            # messages.error(request, 'Invalid username or password')
             return render(request, 'invalid.html', {'message':err})
         print(ev.pswd, obj.epass)
         if ev.pswd != obj.epass:
-            # messages.error(request, 'Invalid username or password')
             return render(request, 'invalid.html', {'message':err})
         
         data = part.objects.filter(eid=obj.eid)

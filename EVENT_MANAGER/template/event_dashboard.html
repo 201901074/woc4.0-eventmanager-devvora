@@ -4,18 +4,18 @@
 {% block content %}
 
 
-        <div style="background-color: #f7ffff;"class="p-3 mb-2  text-dark">
+        <div style="background-color: #9fb16a;" class=" p-5  text-dark">
 
-
-            <figure class="text-center">
-                <br><br><br><br><br>    
-                <h1 class="display-1">Event Dashboard</h1>
-        
-            </figure>
-        
-            <div class="shadow-lg p-5 mb-5 mt-1 ms-5 me-5 bg-body rounded" class="container px-2">        
+            <div class="shadow-lg p-5 mb-5 mt-5 ms-5 me-5 bg-body rounded" class="container px-4">        
                 <form action="event_dashboard.html" method="post"  class="row g-3" >
                     {% csrf_token %}
+
+                    <figure class="text-center">
+                        <h1 class="display-2 p-4 mb-0 mt-2 ms-5 me-5  bg-white text-dark">Event Dashboard</h1>
+                
+                    </figure>
+                    <br><br>
+
                     <div class="col-md-6" ">
                         <label for="hid" class="form-label">Event ID</label>
                         <input type="text" class="form-control" id="hid" name="hid" required>
