@@ -87,6 +87,9 @@ def parti(request):
             obj.rno = 1
         else:
             obj.rno = request.POST.get('rno')
+            if str(obj.rno) < '2':
+                return render(request, 'invalid.html', {'message':"You can't have less than 2 person in a group"})
+                
 
         i = part.objects.filter(eid=obj.eid, iemail=obj.iemail)
         if len(i) > 0:
